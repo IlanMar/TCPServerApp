@@ -9,7 +9,7 @@ namespace TCPserverApp
 {
     class Helper
     {
-
+        float[] RobotOdomData;
         public TcpConnection tc;
 
         public void TCPconnect(string ip, string process, bool is_robot)
@@ -35,67 +35,10 @@ namespace TCPserverApp
                 int ind = str.IndexOf("#");
                 var LedData = str.Substring(ind + 1);
 
-                
-                //KukaPotField.LedDataKuka(s);//отправляем данные с лудара куки
-                ReceiveConfData(LedData); //получаем данные     о конфигурации        }
-            // float Xrob1, Yrob1, Arob1, Xrob2, Yrob2, Arob2, Xrob3, Yrob3, Arob3;
-            if (str.Contains("pt id="))
-            {
-                Form1.f1.rtb_cam.Invoke(new Action(() => Form1.f1.rtb_cam.Text = str));
 
-                string Firstrobot = str.Substring(55, 17);
-                string Secondrobot = str.Substring(112, 17);
-                string Thirdrobot = str.Substring(169, 17);
-
-                //  CultureInfo culture = new CultureInfo("ru");
-                Xrob3 = float.Parse(Firstrobot.Substring(0, 3), new CultureInfo("en-US"));//раньше это был Хроб1
-                Yrob3 = float.Parse(Firstrobot.Substring(6, 4), new CultureInfo("en-US"));
-                //    Arob1 = float.Parse(Firstrobot.Substring(10, 4), new CultureInfo("en-US"));
-
-                Xrob2 = float.Parse(Secondrobot.Substring(0, 3), new CultureInfo("en-US"));
-                Yrob2 = float.Parse(Secondrobot.Substring(6, 4), new CultureInfo("en-US"));
-                ///   Arob2 = float.Parse(Secondrobot.Substring(10, 4), new CultureInfo("en-US"));
-
-                Xrob1 = float.Parse(Thirdrobot.Substring(0, 3), new CultureInfo("en-US"));
-                Yrob1 = float.Parse(Thirdrobot.Substring(6, 4), new CultureInfo("en-US"));
-                //  Arob3 = float.Parse(Thirdrobot.Substring(10, 4), new CultureInfo("en-US"));
-
-                //или просто по символам, отсчитать символы для чисел в первой второй и третей строчке
-
-
-            }
-
-
-
-            if (str.Contains(".odom#"))
-            {
-                int ind = str.IndexOf("#");
-                var OdometryData = str.Substring(ind + 1);
-                //  KukaPotField.RodLocReceivingKuka(s);//отпровляем "s" данные одометрии
-                Form1.f1.ShowOdomData(OdometryData);
-                float Xdelta = 0, Ydelta = 0;
-                if (ip == "192.168.88.23")
-                {
-                    Xdelta = -1.5f; Ydelta = 0;
-                    //   Xdelta = Form1.f1.yatccam.Xrob1; Ydelta = 6 - Form1.f1.yatccam.Yrob1;
-                    // Xdelta = Form1.f1.yatccam.Xrob1 - Form1.f1.yatccam.Xrob2; Ydelta = Form1.f1.yatccam.Yrob2 - Form1.f1.yatccam.Yrob1;
-                    Xdelta = Xdelta * -1; Ydelta = Ydelta * -1;
-                }
-                if (ip == "192.168.88.24")
-                {
-                    Xdelta = 0; Ydelta = 0;
-                    // Xdelta =  Form1.f1.yatccam.Xrob2; Ydelta = 6 - Form1.f1.yatccam.Yrob2;
-                }
-                if (ip == "192.168.88.25")
-                {
-                    Xdelta = 1.5f; Ydelta = 0;
-                    //  Xdelta =  Form1.f1.yatccam.Xrob3- Form1.f1.yatccam.Xrob2; Ydelta =  Form1.f1.yatccam.Yrob2-Form1.f1.yatccam.Yrob3;
-                    Xdelta = Xdelta * -1; Ydelta = Ydelta * -1;
-                    //Xdelta = -1.2f; Ydelta = 0;
-                }
-                ReceiveOdomData(OdometryData, Xdelta, Ydelta); //отправляем данные одометрии
-            }
-            //ra.Receive(LedData, OdometryData); 
+               
+                ReceiveConfData(LedData); //получаем данные     о конфигурации  
+            }   
             if (tc == null)
             {
 
@@ -125,9 +68,9 @@ namespace TCPserverApp
             /*youbot_connection.send(ToString(data));*/
         }
 
-        public override void ReceiveConfData(string OdometryData, float Xdelta, float Ydelta)
+        public  void ReceiveConfData(string OdometryData)
         {
-            ReceiveConfData = new float[3];
+           float[] ReceiveConfData = new float[3];
             if (OdometryData != "")
             {
                 // string someString = RobPos;
@@ -139,13 +82,10 @@ namespace TCPserverApp
                 }
                 float alpha = RobotOdomData[0];
 
-                RobotOdomData[0] = RobotOdomData[1];
-                RobotOdomData[1] = alpha;
-                RobotOdomData[1] = RobotOdomData[1] + Ydelta;
-                RobotOdomData[0] = RobotOdomData[0] + Xdelta;
+         
             }
         }
-        public override void Deactivate()
+        public  void Deactivate()
         {
 
             if (tc != null) tc.Disconnect("form closing", false);
