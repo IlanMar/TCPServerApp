@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace VRepClient
+namespace TCPserverApp
 
 {
     public class TcpConnection
@@ -30,6 +30,11 @@ namespace VRepClient
         private EventDel onConnected, onDataReceived, onDisconnect;
 
         private System.Windows.Forms.Timer timer_keep_alive;
+
+        internal void Connect(string ip, string process, bool is_robot)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool IsConnected()
         {

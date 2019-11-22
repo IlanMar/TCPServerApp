@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TCPserverApp
 {
@@ -33,11 +34,11 @@ namespace TCPserverApp
             if (str.StartsWith(".conf#"))//начало строки
             {
                 int ind = str.IndexOf("#");
-                var LedData = str.Substring(ind + 1);
+                var confData = str.Substring(ind + 1);
 
 
                
-                ReceiveConfData(LedData); //получаем данные     о конфигурации  
+                ReceiveConfData(confData); //получаем данные     о конфигурации  
             }   
             if (tc == null)
             {
@@ -59,10 +60,10 @@ namespace TCPserverApp
               //  var arg1 = Vrob; arg1 = (float)Math.Max(-speed, Math.Min(arg1, speed));//надо переделать эти выводы для адекватного вывода
                // var arg2 = LRrob; arg2 = (float)Math.Max(-speed, Math.Min(arg2, speed));
                 //var arg3 = Wrob; arg3 = Math.Max(-speed, Math.Min(arg3, speed));//возможно(left-right)
-                control_str = string.Format(CultureInfo.InvariantCulture, "LUA_Base({0}, {1}, {2})", 0, 0, 0);
+                control_str = string.Format(CultureInfo.InvariantCulture, "", 0, 0, 0);
 
                
-                if (control_str != null) tc.SendConf(control_str);//отправляем команду 
+                if (control_str != null) tc.Send(control_str);//отправляем команду 
                
             }
             /*youbot_connection.send(ToString(data));*/
@@ -94,4 +95,4 @@ namespace TCPserverApp
 
 
 }
-}
+
