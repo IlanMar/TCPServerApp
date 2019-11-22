@@ -31,17 +31,14 @@ namespace TCPserverApp
         {
 
             TcpServer Ts = new TcpServer();
-            
-            var currentIP =  GetLocalIPAddress();
+
+            var currentIP = "192.168.0.9"; //GetLocalIPAddress();
             Ts.Start(currentIP.ToString(), 5555);
             Ts.OnReceive = (s) => invoke(() =>richTextBox1.Text = s);//получение строки s
-            Ts.
+           
             
         }
         void invoke(Action a) { invoke(a); }
-        private object GetLocalIPAddress()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
