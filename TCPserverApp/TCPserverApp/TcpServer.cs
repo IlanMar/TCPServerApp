@@ -12,7 +12,7 @@ namespace TCPserverApp
         TcpListener server;
         Encoding enc;
 
-        public void Start(string ip, int port, Encoding enc)
+        public void Start(string ip, int port)
         {
             server = new TcpListener(IPAddress.Parse(ip), port);
             server.Start();
@@ -20,7 +20,7 @@ namespace TCPserverApp
             ServerThread = new Thread(Run);
             ServerThread.Start();
 
-            this.enc = enc;
+            
         }
 
         public Thread ServerThread;
@@ -42,6 +42,7 @@ namespace TCPserverApp
         {
             // запуск слушателя
             server.Start();
+            
 
             while (!stop)
             {
@@ -51,7 +52,7 @@ namespace TCPserverApp
                 // получаем сетевой поток для чтения и записи
                 var stream = client.GetStream();
 
-                var sr = new StreamReader(stream, enc);
+                var sr = new StreamReader(stream);
                 var sb = new StringBuilder();
                 char ch;
 

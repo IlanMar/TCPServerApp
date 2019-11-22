@@ -26,5 +26,22 @@ namespace TCPserverApp
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            TcpServer Ts = new TcpServer();
+            
+            var currentIP =  GetLocalIPAddress();
+            Ts.Start(currentIP.ToString(), 5555);
+            Ts.OnReceive = (s) => invoke(() =>richTextBox1.Text = s);//получение строки s
+            Ts.
+            
+        }
+        void invoke(Action a) { invoke(a); }
+        private object GetLocalIPAddress()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
