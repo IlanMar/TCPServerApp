@@ -33,7 +33,7 @@ namespace TCPserverApp
             {
                 richTextBox1.Text = s;// s это получаемое сообщение
             });//получение строки s
-            Ts.ProcessRequest = s => s + "**********\r\n";
+            Ts.ProcessRequest = s => s + "*****fght*****\r\n";
             
         }
 
