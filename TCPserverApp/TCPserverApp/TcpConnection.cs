@@ -1,6 +1,7 @@
 ﻿//WinRos project by Sekou Diane (sekoudiane1990@gmail.com) and Alexey Novoselsky
 //Moscow, MIREA, 2014-2015
 
+//https://metanit.com/sharp/net/4.2.php
 
 using System;
 using System.IO;
