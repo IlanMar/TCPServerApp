@@ -31,9 +31,10 @@ namespace TCPserverApp
         {
 
             TcpServer Ts = new TcpServer();
-
-            var currentIP = "192.168.0.9"; //GetLocalIPAddress();
-            Ts.Start(currentIP.ToString(), 5555);
+           
+            var currentIP = Helper.GetLocalIPAddress();//"192.168.0.9"; //GetLocalIPAddress();
+            var currentIPstring= currentIP.ToString();
+            Ts.Start(currentIPstring, 5555);
             Ts.OnReceive = (s) => invoke(() =>richTextBox1.Text = s);//получение строки s
            
             
