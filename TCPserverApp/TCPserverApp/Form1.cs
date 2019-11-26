@@ -24,22 +24,28 @@ namespace TCPserverApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+ TcpServer Ts = new TcpServer();
 
+            var currentIP = "127.0.0.1";// Helper.GetLocalIPAddress();//"192.168.0.9"; //GetLocalIPAddress();
+            var currentIPstring= currentIP.ToString();
+            Ts.Start(currentIPstring, 5555);
+            Ts.OnReceive = s => invoke(() =>
+            {
+                richTextBox1.Text = s;// s это получаемое сообщение
+            });//получение строки s
+            Ts.ProcessRequest = s => s + "**********\r\n";
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            TcpServer Ts = new TcpServer();
            
-            var currentIP = Helper.GetLocalIPAddress();//"192.168.0.9"; //GetLocalIPAddress();
-            var currentIPstring= currentIP.ToString();
-            Ts.Start(currentIPstring, 5555);
-            Ts.OnReceive = (s) => invoke(() =>richTextBox1.Text = s);//получение строки s
-           
-            
+
+
         }
-        void invoke(Action a) { invoke(a); }
+        void invoke(Action a) { Invoke(a); }
+
         
     }
 }

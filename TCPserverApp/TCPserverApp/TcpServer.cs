@@ -41,8 +41,7 @@ namespace TCPserverApp
         void Run()
         {
             // запуск слушателя
-            server.Start();
-            
+            server.Start();            
 
             while (!stop)
             {
@@ -59,7 +58,7 @@ namespace TCPserverApp
                 while(true)
                 {
                     var res=sr.Read();
-                    if (res < 0) continue;
+                    if (res < 0) break;
 
                     ch = (char)res;
                     sb.Append(ch);
